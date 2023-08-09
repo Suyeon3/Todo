@@ -62,8 +62,9 @@ function printTodo(todoValue, checkValue){
         li.appendChild(span);
         li.id = todos.length + 1;
         // 추후 스타일 다시 지정
-        li.style.color = "#ccc";
-        li.style.textDecoration="line-through";
+        // li.style.color = "#ccc";
+        // li.style.textDecoration="line-through";
+        li.classList.toggle('completed');
         todoList.appendChild(li);
     }
     else if (checkValue == 0) {
@@ -82,9 +83,22 @@ function printTodo(todoValue, checkValue){
 function checkTodo(e) {
     const { target : span } = e;
     const li = span.parentNode;
-    li.classList.toggle('completed');
-    todos.forEach( currentTodo => {
-        if(currentTodo.id == Number(li.id)) currentTodo.checked = 1;
-    })
+
+    if (li.className == null){
+        li.classList.add('completed');
+        todos.forEach( currentTodo => {
+            if(currentTodo.id == Number(li.id)) {
+                currentTodo.checked = 1;
+            }
+        })
+    }
+    else if (li.className == 'completed') {
+        li.classList.remove('completed')
+        todos.forEach( currentTodo => {
+            if(currentTodo.id == Number(li.id)) {
+                currentTodo.checked = 0;
+            }
+        })
+    }
     localStorage.setItem("TODO", JSON.stringify(todos));
 }

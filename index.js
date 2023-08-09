@@ -6,12 +6,10 @@ let todos = [];
 
 function init(){
     loadStorage();
-    // click? submit?
     todoSubmit.addEventListener('click', createTodo);
 }
 init();
 
-// localStorage 로드
 function loadStorage() {
     const storedTodo = window.localStorage.getItem("TODO");
 
@@ -55,16 +53,13 @@ function printTodo(todoValue, checkValue){
     const li = document.createElement('li');
     const checkBtn = document.createElement('button');
     const span = document.createElement('span');
-    // 체크박스, 삭제버튼 추가
+    // 삭제버튼 추가
     if (checkValue == 1){
         span.innerHTML = todoValue;
         li.appendChild(checkBtn);
         li.appendChild(span);
         li.id = todos.length + 1;
-        // 추후 스타일 다시 지정
-        // li.style.color = "#ccc";
-        // li.style.textDecoration="line-through";
-        li.classList.toggle('completed');
+        li.classList.add('completed');
         todoList.appendChild(li);
     }
     else if (checkValue == 0) {
@@ -78,8 +73,7 @@ function printTodo(todoValue, checkValue){
     checkBtn.addEventListener("click", checkTodo);
 }
 
-// checkTodo가 실행되면 completed 클래스가 추가되도록, 목록의 맨 뒤로 가도록
-// completed 클래스 -> 체크했을때 css 스타일
+// 완료된 todo는 목록의 맨 뒤로 가도록 수정 필요
 function checkTodo(e) {
     const { target : span } = e;
     const li = span.parentNode;

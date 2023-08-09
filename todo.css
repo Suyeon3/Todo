@@ -1,4 +1,29 @@
+.todoBox {
+    list-style-type: none;
+}
+
+.todoBox button {
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    margin-right: 8px;
+    border-color: #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .todoBox li.completed {
     text-decoration: line-through;
     color: #ccc;
+}
+
+/* 추후 스타일 수정 예정 */
+.todoBox li.completed button::after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    transform: translate(-2px, -2px) rotate(45deg);
+    border-right: 2px solid #f1b116;
+    border-bottom: 2px solid #f1b116;
 }

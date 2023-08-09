@@ -73,6 +73,18 @@ function printTodo(todoValue, checkValue){
         li.id = todos.length + 1;
         todoList.appendChild(li);
     }
+
+    checkBtn.addEventListener("click", checkTodo);
 }
 
-function checkTodo()
+// checkTodo가 실행되면 completed 클래스가 추가되도록, 목록의 맨 뒤로 가도록
+// completed 클래스 -> 체크했을때 css 스타일
+function checkTodo(e) {
+    const { target : span } = e;
+    const li = span.parentNode;
+    li.classList.toggle('completed');
+    todos.forEach( currentTodo => {
+        if(currentTodo.id == Number(li.id)) currentTodo.checked = 1;
+    })
+    localStorage.setItem("TODO", JSON.stringify(todos));
+}

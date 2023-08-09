@@ -1,0 +1,4 @@
+.todoBox li.completed {
+    text-decoration: line-through;
+    color: #ccc;
+}

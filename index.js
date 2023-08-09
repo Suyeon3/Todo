@@ -84,7 +84,7 @@ function checkTodo(e) {
     const { target : span } = e;
     const li = span.parentNode;
 
-    if (li.className == null){
+    if (!li.className){
         li.classList.add('completed');
         todos.forEach( currentTodo => {
             if(currentTodo.id == Number(li.id)) {

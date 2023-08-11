@@ -2,7 +2,7 @@
     list-style-type: none;
 }
 
-.todoBox button {
+.todoBox button.check {
     width: 15px;
     height: 15px;
     background-color: #fff;
@@ -18,7 +18,7 @@
 }
 
 /* 추후 스타일 수정 예정 */
-.todoBox li.completed button::after {
+.todoBox li.completed button.check::after {
     content: "";
     display: block;
     width: 5px;

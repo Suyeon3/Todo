@@ -53,24 +53,26 @@ function printTodo(todoValue, checkValue){
     const li = document.createElement('li');
     const checkBtn = document.createElement('button');
     const span = document.createElement('span');
-    // 삭제버튼 추가
-    if (checkValue == 1){
-        span.innerHTML = todoValue;
-        li.appendChild(checkBtn);
-        li.appendChild(span);
-        li.id = todos.length + 1;
+    const editBtn = document.createElement('button');
+    const delBtn = document.createElement('button');
+    
+    span.innerHTML = todoValue;
+    checkBtn.classList.add('check');
+    editBtn.innerHTML = '수정';
+    delBtn.innerHTML = '삭제';
+    li.appendChild(checkBtn);
+    li.appendChild(span);
+    li.appendChild(editBtn);
+    li.appendChild(delBtn);
+    li.id = todos.length + 1;
+    if (checkValue == 1) {
         li.classList.add('completed');
-        todoList.appendChild(li);
     }
-    else if (checkValue == 0) {
-        span.innerHTML = todoValue;
-        li.appendChild(checkBtn);
-        li.appendChild(span);
-        li.id = todos.length + 1;
-        todoList.appendChild(li);
-    }
+    todoList.appendChild(li);
 
     checkBtn.addEventListener("click", checkTodo);
+    delBtn.addEventListener("click", deleteTodo);
+    editBtn.addEventListener("click". editBtn);
 }
 
 // 완료된 todo는 목록의 맨 뒤로 가도록 수정 필요
@@ -94,5 +96,21 @@ function checkTodo(e) {
             }
         })
     }
+    localStorage.setItem("TODO", JSON.stringify(todos));
+}
+
+function editTodo(e)
+{
+    // const {target : button} = e;
+    // const li = button.parentNode;
+    // todoList.
+}
+
+function deleteTodo(e)
+{
+    const {target : button} = e;
+    const li = button.parentNode;
+    todoList.removeChild(li);
+    todos = todos.filter((todo) => todo.id != Number(li.id));
     localStorage.setItem("TODO", JSON.stringify(todos));
 }

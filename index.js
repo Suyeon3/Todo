@@ -72,7 +72,7 @@ function printTodo(todoValue, checkValue){
 
     checkBtn.addEventListener("click", checkTodo);
     delBtn.addEventListener("click", deleteTodo);
-    editBtn.addEventListener("click". editBtn);
+    editBtn.addEventListener("click", editTodo);
 }
 
 // 완료된 todo는 목록의 맨 뒤로 가도록 수정 필요
@@ -101,9 +101,31 @@ function checkTodo(e) {
 
 function editTodo(e)
 {
-    // const {target : button} = e;
-    // const li = button.parentNode;
-    // todoList.
+    const {target : button} = e;
+    const li = button.parentNode;
+    const span = li.querySelector('span');
+    const editInput = document.createElement('input');
+    // editInput이 li를 span을 가리도록
+    // absolute : 부모요소를 기준으로 배치
+    editInput.classList.add('edit-input');
+    editInput.value = span.innerText;
+    
+    editInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            updateTodo(e.target.value, e.target); // todo 수정
+            li.removeChild(editInput);
+        }
+    })
+
+    li.appendChild(editInput);
+ 
+}
+
+function updateTodo(text, elem)
+{
+    const li = elem.parentNode;
+    todos = todos.map((todo) => todo.id === Number(li.id) ? {...todo, text: text} : todo);
+    localStorage.setItem("TODO", JSON.stringify(todos));
 }
 
 function deleteTodo(e)

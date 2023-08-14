@@ -27,3 +27,13 @@
     border-right: 2px solid #f1b116;
     border-bottom: 2px solid #f1b116;
 }
+
+
+.edit-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 590px;
+    height: 2.8rem;
+    margin: 0;
+}

@@ -1,14 +1,26 @@
 const todoInput = document.getElementById('whatTodo');
 const todoSubmit = document.getElementById('addTodo');
 const todoList = document.querySelector('.todoBox');
+const todayDate = document.getElementById('date');
 
 let todos = [];
 
 function init(){
+    getToday();
     loadStorage();
     todoSubmit.addEventListener('click', createTodo);
 }
 init();
+
+function getToday() {
+    let today = new Date();
+
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let date = today.getDate();
+
+    todayDate.innerHTML = `<h1>${year}/${month}/${date}</h1>`;
+}
 
 function loadStorage() {
     const storedTodo = window.localStorage.getItem("TODO");

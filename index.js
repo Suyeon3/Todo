@@ -19,7 +19,7 @@ function getToday() {
     let month = today.getMonth() + 1;
     let date = today.getDate();
 
-    todayDate.innerHTML = `<h1>${year}/${month}/${date}</h1>`;
+    todayDate.innerHTML = `${year}/${month}/${date}`;
 }
 
 function loadStorage() {
@@ -71,7 +71,9 @@ function printTodo(todoValue, checkValue){
     span.innerHTML = todoValue;
     checkBtn.classList.add('check');
     editBtn.innerHTML = '수정';
+    editBtn.classList.add('edit-btn');
     delBtn.innerHTML = '삭제';
+    delBtn.classList.add('del-btn');
     li.appendChild(checkBtn);
     li.appendChild(span);
     li.appendChild(editBtn);
@@ -117,8 +119,6 @@ function editTodo(e)
     const li = button.parentNode;
     const span = li.querySelector('span');
     const editInput = document.createElement('input');
-    // editInput이 li를 span을 가리도록
-    // absolute : 부모요소를 기준으로 배치
     editInput.classList.add('edit-input');
     editInput.value = span.innerText;
     
@@ -136,6 +136,8 @@ function editTodo(e)
 function updateTodo(text, elem)
 {
     const li = elem.parentNode;
+    const span = li.querySelector('span');
+    span.innerHTML = text;
     todos = todos.map((todo) => todo.id === Number(li.id) ? {...todo, text: text} : todo);
     localStorage.setItem("TODO", JSON.stringify(todos));
 }

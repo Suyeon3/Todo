@@ -1,19 +1,100 @@
+body { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ECE9F4;
+
+    margin: 0px;
+    height: 100vmin;
+}
+
+#date {
+    padding: 1rem;
+    font-size: 3rem;
+    text-align: center;
+    color: #899EE5;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 65%;
+    background-color: #FBFBFB;
+    border-radius: 30px;
+}
+
+.container .addBox {
+    width: 90%;
+    height: 17%;
+    box-sizing: border-box;
+}
+
+.container .todoBox {
+    width: 90%;
+    height: 83%;
+    box-sizing: border-box;
+    padding: 0px;
+}
+
+#todoForm {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin-top: 1.15rem;
+}
+
+#todoForm #whatTodo {
+    color: #5D5D5D;
+    font-size: 1.15rem;
+    padding-left: 1rem;
+    padding-bottom: 0.55rem;
+    border: none;
+    border-bottom: 1px solid #5D5D5D;
+    background: transparent;
+    width: 60%;
+    outline: none;
+    /* margin-top: 1rem; */
+}
+
+#todoForm #addTodo {
+    color: #5D5D5D;
+    font-size: 1.02rem;
+    border: none;
+    border-radius: 20px;
+    width: 6rem;
+    height: 2.2rem;
+    cursor: pointer;
+}
+
+
 .todoBox {
     list-style-type: none;
+    margin-top: 1.8rem;
+    overflow: auto;
+}
+
+.todoBox li {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0.4rem 0;
 }
 
 .todoBox button.check {
-    width: 15px;
-    height: 15px;
+    width:1.5rem;
+    height: 1.5rem;
     background-color: #fff;
-    margin-right: 8px;
+    margin-right: 0.8rem;
     border-color: #ccc;
     border-radius: 4px;
     cursor: pointer;
 }
 
+
 .todoBox li.completed {
-    text-decoration: line-through;
+    /* text-decoration: line-through; */
     color: #ccc;
 }
 
@@ -21,19 +102,43 @@
 .todoBox li.completed button.check::after {
     content: "";
     display: block;
-    width: 5px;
-    height: 10px;
-    transform: translate(-2px, -2px) rotate(45deg);
-    border-right: 2px solid #f1b116;
-    border-bottom: 2px solid #f1b116;
+    width: 4.5px;
+    height: 18px;
+    transform: translate(-0.1px, -3.5px) rotate(45deg);
+    border-right: 2px solid #F276A3;
+    border-bottom: 2px solid #F276A3;
 }
 
+.todoBox span{
+    /* position: relative; */
+    display: inline-block;
+    width: 78%;
+}
+
+.edit-btn {
+    font-size: 0.7rem;
+    color: #5D5D5D;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0.2rem;
+
+}
+
+.del-btn {
+    font-size: 0.7rem;
+    color: #5D5D5D;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0.2rem;
+}
 
 .edit-input {
+    /* padding: 0.4rem 0 */
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 590px;
-    height: 2.8rem;
+    left: 2.3rem;
+    top: 0.4rem;
+    width: 76.5%;
+    /* width: calc(76.5% - 2.3rem); */
+    height: 1.2rem;
     margin: 0;
 }

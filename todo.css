@@ -68,6 +68,11 @@ body {
     cursor: pointer;
 }
 
+#todoForm #addTodo:hover {
+    color: #9D8EFA;
+    border: 1px solid #9D8EFA;
+}
+
 
 .todoBox {
     list-style-type: none;
@@ -110,7 +115,6 @@ body {
 }
 
 .todoBox span{
-    /* position: relative; */
     display: inline-block;
     width: 78%;
 }
@@ -121,7 +125,13 @@ body {
     border: none;
     border-radius: 5px;
     margin: 0 0.2rem;
+    cursor: pointer;
 
+}
+
+.edit-btn:hover {
+    color: #9D8EFA;
+    border: 1px solid #9D8EFA;
 }
 
 .del-btn {
@@ -130,6 +140,12 @@ body {
     border: none;
     border-radius: 5px;
     margin: 0 0.2rem;
+    cursor: pointer;
+}
+
+.del-btn:hover {
+    color: #9D8EFA;
+    border: 1px solid #9D8EFA;
 }
 
 .edit-input {
@@ -138,7 +154,6 @@ body {
     left: 2.3rem;
     top: 0.4rem;
     width: 76.5%;
-    /* width: calc(76.5% - 2.3rem); */
     height: 1.2rem;
     margin: 0;
 }

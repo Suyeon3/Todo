@@ -2,6 +2,8 @@ const todoInput = document.getElementById('whatTodo');
 const todoSubmit = document.getElementById('addTodo');
 const todoList = document.querySelector('.todoBox');
 const todayDate = document.getElementById('date');
+const completeAllBtn = document.getElementById('complete-all');
+let isAllCompleted = false; //전체 todos 체크 여부
 
 let todos = [];
 
@@ -9,9 +11,11 @@ function init(){
     getToday();
     loadStorage();
     todoSubmit.addEventListener('click', createTodo);
+    completeAllBtn.addEventListener('click', onClickCompleteAll); 
 }
 init();
 
+// 날짜 얻기
 function getToday() {
     let today = new Date();
 
@@ -22,6 +26,7 @@ function getToday() {
     todayDate.innerHTML = `${year}/${month}/${date}`;
 }
 
+// localStorage 로드 
 function loadStorage() {
     const storedTodo = window.localStorage.getItem("TODO");
 
@@ -36,21 +41,22 @@ function loadStorage() {
     }
 }
 
+// todo 추가 시 실행
 function createTodo(ev) {
     ev.preventDefault();
-    // const? let?
     const todoValue = todoInput.value;
     if (!todoValue) {
-        // toast창으로 수정
         alert('할 일을 입력해주세요')
     }else {
         printTodo(todoValue, 0)
         storeTodo(todoValue, 0)
         todoInput.value = ''; 
     }
+    checkIsAllCompleted()
     
 }
 
+// 새로운 todo 저장
 function storeTodo(todoValue, checkValue) {
     const todosObj = {
         text : todoValue,
@@ -61,6 +67,7 @@ function storeTodo(todoValue, checkValue) {
     window.localStorage.setItem("TODO", JSON.stringify(todos));
 }
 
+// 새로운 todo 출력
 function printTodo(todoValue, checkValue){
     const li = document.createElement('li');
     const checkBtn = document.createElement('button');
@@ -79,6 +86,7 @@ function printTodo(todoValue, checkValue){
     li.appendChild(editBtn);
     li.appendChild(delBtn);
     li.id = todos.length + 1;
+
     if (checkValue == 1) {
         li.classList.add('completed');
     }
@@ -87,32 +95,95 @@ function printTodo(todoValue, checkValue){
     checkBtn.addEventListener("click", checkTodo);
     delBtn.addEventListener("click", deleteTodo);
     editBtn.addEventListener("click", editTodo);
+
 }
 
-// 완료된 todo는 목록의 맨 뒤로 가도록 수정 필요
-function checkTodo(e) {
-    const { target : span } = e;
-    const li = span.parentNode;
+function setIsAllCompleted (bool)
+{
+    isAllCompleted = bool;
+}
 
-    if (!li.className){
+// 모두 완료 안 됐을 때 실행
+function completeAll()
+{
+    completeAllBtn.innerText = '전체 해제';
+    todos.forEach(todo => {
+        if (todo.checked == 0) {
+            todo.checked = 1;
+            document.getElementById(String(todo.id)).classList.add('completed');
+        }
+    })
+    localStorage.setItem("TODO", JSON.stringify(todos));
+}
+
+// 모두 완료됐을 때 실행
+function incompleteAll()
+{
+    completeAllBtn.innerText = '전체 선택';
+    todos.forEach(todo => {
+            todo.checked = 1;
+            document.getElementById(String(todo.id)).classList.remove('completed');
+    })
+    todos = todos.map(todo => ({...todo, checked: 0}));
+    localStorage.setItem("TODO", JSON.stringify(todos));
+}
+
+function getCompletedTodos() 
+{
+    return todos.filter(todo => todo.checked === 1);
+}
+
+// 전체 todos의 check 여부(isCompleted) 확인해서 상태 처리
+function checkIsAllCompleted()
+{
+    if(todos.length === getCompletedTodos().length)
+    {
+        setIsAllCompleted(true);
+        completeAllBtn.innerText = '전체 해제';
+    }else {
+        setIsAllCompleted(false);
+        completeAllBtn.innerText = '전체 선택';
+    }
+}
+
+// 전체완료 버튼 클릭시 실행
+function onClickCompleteAll()
+{
+    if(!todos.length) return;
+
+    if(isAllCompleted) incompleteAll();
+    else completeAll();
+    setIsAllCompleted(!isAllCompleted);
+    // setLeftItems()
+}
+
+// todo 체크 버튼 클릭시 실행
+function checkTodo(e) {
+    const { target : button } = e;
+    const li = button.parentNode;
+
+    if (!li.classList.contains('completed')){
         li.classList.add('completed');
         todos.forEach( currentTodo => {
             if(currentTodo.id == Number(li.id)) {
                 currentTodo.checked = 1;
             }
-        })
+        });
     }
-    else if (li.className == 'completed') {
+    else {
         li.classList.remove('completed')
         todos.forEach( currentTodo => {
             if(currentTodo.id == Number(li.id)) {
                 currentTodo.checked = 0;
             }
-        })
+        });
     }
+
     localStorage.setItem("TODO", JSON.stringify(todos));
+    checkIsAllCompleted();
 }
 
+// todo 수정
 function editTodo(e)
 {
     const {target : button} = e;
@@ -142,6 +213,7 @@ function updateTodo(text, elem)
     localStorage.setItem("TODO", JSON.stringify(todos));
 }
 
+// todo 삭제
 function deleteTodo(e)
 {
     const {target : button} = e;
@@ -149,4 +221,5 @@ function deleteTodo(e)
     todoList.removeChild(li);
     todos = todos.filter((todo) => todo.id != Number(li.id));
     localStorage.setItem("TODO", JSON.stringify(todos));
+    checkIsAllCompleted();
 }

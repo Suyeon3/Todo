@@ -10,6 +10,7 @@ let todos = [];
 function init(){
     getToday();
     loadStorage();
+    checkIsAllCompleted()
     todoSubmit.addEventListener('click', createTodo);
     completeAllBtn.addEventListener('click', onClickCompleteAll); 
 }

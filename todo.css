@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 50%;
-    height: 65%;
+    height: 70%;
     background-color: #FBFBFB;
     border-radius: 30px;
 }
@@ -29,13 +29,6 @@ body {
     width: 90%;
     height: 17%;
     box-sizing: border-box;
-}
-
-.container .todoBox {
-    width: 90%;
-    height: 83%;
-    box-sizing: border-box;
-    padding: 0px;
 }
 
 #todoForm {
@@ -74,7 +67,11 @@ body {
 }
 
 
-.todoBox {
+.container .todoBox {
+    width: 90%;
+    height: 75%;
+    box-sizing: border-box;
+    padding: 0px;
     list-style-type: none;
     margin-top: 1.8rem;
     overflow: auto;
@@ -156,4 +153,26 @@ body {
     width: 76.5%;
     height: 1.2rem;
     margin: 0;
+}
+
+.container .toggles {
+    width: 90%;
+    height: 10%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1.5%;
+}
+
+#complete-all {
+    font-size: 0.6rem;
+    color: #5D5D5D;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#complete-all:hover {
+    color: #9D8EFA;
+    border: 1px solid #9D8EFA;
 }

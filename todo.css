@@ -176,3 +176,10 @@ body {
     color: #9D8EFA;
     border: 1px solid #9D8EFA;
 }
+
+.left-items {
+    width: 48%;
+    font-size: 1.3vw;
+    color: #5D5D5D;
+    margin-top: 1%;
+}

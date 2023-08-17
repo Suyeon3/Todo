@@ -4,6 +4,7 @@ const todoList = document.querySelector('.todoBox');
 const todayDate = document.getElementById('date');
 const completeAllBtn = document.getElementById('complete-all');
 let isAllCompleted = false; //전체 todos 체크 여부
+const leftItems = document.querySelector('.left-items');
 
 let todos = [];
 
@@ -13,6 +14,7 @@ function init(){
     checkIsAllCompleted()
     todoSubmit.addEventListener('click', createTodo);
     completeAllBtn.addEventListener('click', onClickCompleteAll); 
+    setLeftItems()
 }
 init();
 
@@ -53,7 +55,8 @@ function createTodo(ev) {
         storeTodo(todoValue, 0)
         todoInput.value = ''; 
     }
-    checkIsAllCompleted()
+    checkIsAllCompleted();
+    setLeftItems();
     
 }
 
@@ -147,7 +150,7 @@ function checkIsAllCompleted()
     }
 }
 
-// 전체완료 버튼 클릭시 실행
+// 전체완료 및 해제 버튼 클릭시 실행
 function onClickCompleteAll()
 {
     if(!todos.length) return;
@@ -155,7 +158,7 @@ function onClickCompleteAll()
     if(isAllCompleted) incompleteAll();
     else completeAll();
     setIsAllCompleted(!isAllCompleted);
-    // setLeftItems()
+    setLeftItems();
 }
 
 // todo 체크 버튼 클릭시 실행
@@ -182,6 +185,7 @@ function checkTodo(e) {
 
     localStorage.setItem("TODO", JSON.stringify(todos));
     checkIsAllCompleted();
+    setLeftItems();
 }
 
 // todo 수정
@@ -223,4 +227,17 @@ function deleteTodo(e)
     todos = todos.filter((todo) => todo.id != Number(li.id));
     localStorage.setItem("TODO", JSON.stringify(todos));
     checkIsAllCompleted();
+    setLeftItems();
+}
+
+// 미완료 todo 갯수 표시
+function getActiveTodos()
+{
+    return todos.filter(todo => todo.checked === 0);
+}
+
+function setLeftItems()
+{
+    const leftTodos = getActiveTodos();
+    leftItems.innerHTML = `${leftTodos.length} item left`;
 }
